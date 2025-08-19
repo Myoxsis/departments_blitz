@@ -63,7 +63,7 @@ class BlitzApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF7C3AED),
+          seedColor: const Color(0xFF1E3A8A),
         ),
         filledButtonTheme: FilledButtonThemeData(
           style: FilledButton.styleFrom(
