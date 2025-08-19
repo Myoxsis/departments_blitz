@@ -14,7 +14,7 @@ class QuizEngine {
     final target = all[_rng.nextInt(all.length)];
 
     // pick distinct distractors
-    final Set<int> used = {};
+    final Set<String> used = {};
     final List<String> opts = [];
 
     // ensure correct answer included
@@ -22,8 +22,8 @@ class QuizEngine {
 
     while (opts.length < optionsCount - 1) {
       final d = all[_rng.nextInt(all.length)];
-      if (d.name != correctName && !used.contains(d.name.hashCode)) {
-        used.add(d.name.hashCode);
+      if (d.name != correctName && !used.contains(d.name)) {
+        used.add(d.name);
         opts.add(d.name);
       }
     }
