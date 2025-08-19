@@ -65,34 +65,43 @@ class _ResultsPageState extends State<ResultsPage> {
         : ((widget.score / (widget.total * 10)) * 100).round();
     return Scaffold(
       appBar: AppBar(title: const Text('Results')),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Score', style: Theme.of(context).textTheme.titleLarge),
-            Text(
-              '${widget.score}',
-              style: Theme.of(context).textTheme.displayMedium,
-            ),
-            const SizedBox(height: 8),
-            Text('Questions answered: ${widget.total}'),
-            Text('Accuracy: $acc%'),
-            const SizedBox(height: 24),
-            FilledButton(
-              onPressed: () => _showInterstitialThen(
-                () => Navigator.of(context).pushReplacementNamed('/game'),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF7C3AED), Color(0xFF4F46E5)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Score', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                '${widget.score}',
+                style: Theme.of(context).textTheme.displayMedium,
               ),
-              child: const Text('Play again'),
-            ),
-            const SizedBox(height: 8),
-            TextButton(
-              onPressed: () => _showInterstitialThen(
-                () => Navigator.of(context).pushReplacementNamed('/'),
+              const SizedBox(height: 8),
+              Text('Questions answered: ${widget.total}'),
+              Text('Accuracy: $acc%'),
+              const SizedBox(height: 24),
+              FilledButton(
+                onPressed: () => _showInterstitialThen(
+                  () => Navigator.of(context).pushReplacementNamed('/game'),
+                ),
+                child: const Text('Play again'),
               ),
-              child: const Text('Back to Home'),
-            ),
-          ],
+              const SizedBox(height: 8),
+              TextButton(
+                onPressed: () => _showInterstitialThen(
+                  () => Navigator.of(context).pushReplacementNamed('/'),
+                ),
+                child: const Text('Back to Home'),
+              ),
+            ],
+          ),
         ),
       ),
     );
