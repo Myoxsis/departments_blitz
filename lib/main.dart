@@ -8,15 +8,48 @@ import 'game/models.dart';
 import 'game/results_args.dart';
 
 Future<List<Department>> loadDepartments() async {
-  final jsonStr = await rootBundle.loadString('assets/departments.json');
-  return parseDepartmentsJson(jsonStr);
+  try {
+    final jsonStr = await rootBundle.loadString('assets/departments.json');
+    return parseDepartmentsJson(jsonStr);
+  } on FlutterError catch (e) {
+    throw FlutterError('Failed to load departments asset: ${e.message}');
+  } on FormatException catch (e) {
+    throw FormatException('Failed to parse departments: ${e.message}');
+  }
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MobileAds.instance.initialize();
-  final departments = await loadDepartments();
-  runApp(BlitzApp(departments: departments));
+  try {
+    final departments = await loadDepartments();
+    runApp(BlitzApp(departments: departments));
+  } on FlutterError catch (e) {
+    runApp(ErrorApp(message: e.message));
+  } on FormatException catch (e) {
+    runApp(ErrorApp(message: e.message));
+  }
+}
+
+class ErrorApp extends StatelessWidget {
+  final String message;
+  const ErrorApp({super.key, required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Departments Blitz - Error',
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Error')),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(message, textAlign: TextAlign.center),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class BlitzApp extends StatelessWidget {

@@ -1,10 +1,29 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../ad_helper.dart';
+import '../widgets/gradient_background.dart';
 import 'models.dart';
 import 'quiz_engine.dart';
 import 'results_args.dart';
+
+QuizQuestion applyFiftyFiftyToQuestion(QuizQuestion q, Random rand) {
+  final correctIdx = q.correctIndex;
+  final wrongIndices = <int>[];
+  for (int i = 0; i < q.options.length; i++) {
+    if (i != correctIdx) wrongIndices.add(i);
+  }
+  final keepWrongIdx = wrongIndices[rand.nextInt(wrongIndices.length)];
+  final newOpts = [q.options[correctIdx], q.options[keepWrongIdx]];
+  newOpts.shuffle(rand);
+  final newCorrectIdx = newOpts.indexOf(q.options[correctIdx]);
+  return QuizQuestion(
+    target: q.target,
+    options: newOpts,
+    correctIndex: newCorrectIdx,
+  );
+}
 
 class GamePage extends StatefulWidget {
   final List<Department> departments;
@@ -74,28 +93,13 @@ class _GamePageState extends State<GamePage> {
     });
   }
 
-  // 50/50 hint: keep correct + one wrong
+  // 50/50 hint: keep correct + one random wrong option
   void _applyFiftyFifty() {
     if (current == null || _fiftyUsedOnThisQ) return;
     final q = current!;
-    final correctIdx = q.correctIndex;
-    final List<String> newOpts = [q.options[correctIdx]];
-    // pick a random wrong option to keep
-    for (int i = 0; i < q.options.length; i++) {
-      if (i != correctIdx) {
-        newOpts.add(q.options[i]);
-        break;
-      }
-    }
-    newOpts.shuffle();
-    final newCorrectIdx = newOpts.indexOf(q.options[correctIdx]);
-
+    final rand = Random();
     setState(() {
-      current = QuizQuestion(
-        target: q.target,
-        options: newOpts,
-        correctIndex: newCorrectIdx,
-      );
+      current = applyFiftyFiftyToQuestion(q, rand);
       _fiftyUsedOnThisQ = true;
     });
   }
@@ -210,14 +214,7 @@ class _GamePageState extends State<GamePage> {
           ),
         ],
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF7C3AED), Color(0xFF4F46E5)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+      body: GradientBackground(
         child: q == null
             ? const Center(child: CircularProgressIndicator())
             : Padding(

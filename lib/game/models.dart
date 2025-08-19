@@ -21,8 +21,12 @@ class QuizQuestion {
 }
 
 List<Department> parseDepartmentsJson(String jsonStr) {
-  final List<dynamic> arr = json.decode(jsonStr) as List<dynamic>;
-  return arr
-      .map((e) => Department.fromJson(e as Map<String, dynamic>))
-      .toList();
+  try {
+    final List<dynamic> arr = json.decode(jsonStr) as List<dynamic>;
+    return arr
+        .map((e) => Department.fromJson(e as Map<String, dynamic>))
+        .toList();
+  } catch (e) {
+    throw FormatException('Failed to parse departments JSON: $e');
+  }
 }
