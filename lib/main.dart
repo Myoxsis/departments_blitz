@@ -81,7 +81,7 @@ class BlitzApp extends StatelessWidget {
             ),
           ),
         ),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),

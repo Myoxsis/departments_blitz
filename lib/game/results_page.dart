@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../ad_helper.dart';
 import 'results_args.dart';
+import '../widgets/gradient_background.dart';
 
 
 class ResultsPage extends StatefulWidget {
