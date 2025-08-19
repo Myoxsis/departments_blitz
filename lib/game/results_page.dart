@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../ad_helper.dart';
+import '../widgets/gradient_background.dart';
 
 class ResultsPage extends StatefulWidget {
   final int score;
@@ -65,14 +66,7 @@ class _ResultsPageState extends State<ResultsPage> {
         : ((widget.score / (widget.total * 10)) * 100).round();
     return Scaffold(
       appBar: AppBar(title: const Text('Results')),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF7C3AED), Color(0xFF4F46E5)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+      body: GradientBackground(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
