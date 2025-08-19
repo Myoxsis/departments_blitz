@@ -6,6 +6,7 @@ import '../ad_helper.dart';
 import '../widgets/gradient_background.dart';
 import 'models.dart';
 import 'quiz_engine.dart';
+import 'results_args.dart';
 
 QuizQuestion applyFiftyFiftyToQuestion(QuizQuestion q, Random rand) {
   final correctIdx = q.correctIndex;
@@ -70,7 +71,7 @@ class _GamePageState extends State<GamePage> {
     if (!mounted) return;
     Navigator.of(context).pushReplacementNamed(
       '/results',
-      arguments: {'score': score, 'total': total},
+      arguments: ResultsArgs(score: score, total: total),
     );
   }
 

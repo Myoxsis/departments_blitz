@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../ad_helper.dart';
-import '../widgets/gradient_background.dart';
+import 'results_args.dart';
+
 
 class ResultsPage extends StatefulWidget {
-  final int score;
-  final int total;
-  const ResultsPage({super.key, required this.score, required this.total});
+  final ResultsArgs args;
+  const ResultsPage({super.key, required this.args});
 
   @override
   State<ResultsPage> createState() => _ResultsPageState();
@@ -61,9 +61,9 @@ class _ResultsPageState extends State<ResultsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final acc = widget.total == 0
+    final acc = widget.args.total == 0
         ? 0
-        : ((widget.score / (widget.total * 10)) * 100).round();
+        : ((widget.args.score / (widget.args.total * 10)) * 100).round();
     return Scaffold(
       appBar: AppBar(title: const Text('Results')),
       body: GradientBackground(
@@ -74,11 +74,11 @@ class _ResultsPageState extends State<ResultsPage> {
             children: [
               Text('Score', style: Theme.of(context).textTheme.titleLarge),
               Text(
-                '${widget.score}',
+                '${widget.args.score}',
                 style: Theme.of(context).textTheme.displayMedium,
               ),
               const SizedBox(height: 8),
-              Text('Questions answered: ${widget.total}'),
+              Text('Questions answered: ${widget.args.total}'),
               Text('Accuracy: $acc%'),
               const SizedBox(height: 24),
               FilledButton(
