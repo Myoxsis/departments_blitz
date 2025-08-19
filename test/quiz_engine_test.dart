@@ -1,25 +1,35 @@
-import 'package:flutter_test/flutter_test.dart';
-
 import 'package:departments_blitz/game/models.dart';
 import 'package:departments_blitz/game/quiz_engine.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('nextQuestion produces unique options even with hash collisions', () {
-    // These two strings are known to produce identical hash codes in Dart.
-    expect('420'.hashCode, '2166'.hashCode);
+  final departments = [
+    Department(code: 'A', name: 'Alpha'),
+    Department(code: 'B', name: 'Bravo'),
+    Department(code: 'C', name: 'Charlie'),
+    Department(code: 'D', name: 'Delta'),
+  ];
 
-    final departments = [
-      const Department(code: '1', name: '420'),
-      const Department(code: '2', name: '2166'),
-      const Department(code: '3', name: 'Alpha'),
-      const Department(code: '4', name: 'Beta'),
-    ];
-
+  test('cycles through all departments before repeating', () {
     final engine = QuizEngine(departments);
-    final question = engine.nextQuestion(optionsCount: 4);
+    final seen = <String>{};
+    for (var i = 0; i < departments.length; i++) {
+      final q = engine.nextQuestion();
+      seen.add(q.target.code);
+    }
+    expect(seen, departments.map((d) => d.code).toSet());
+  });
 
-    // All options must be unique despite hash code collisions.
-    expect(question.options.toSet().length, equals(4));
+  test('consecutive questions use different departments', () {
+    final engine = QuizEngine(departments);
+    Department? prev;
+    for (var i = 0; i < departments.length * 3; i++) {
+      final q = engine.nextQuestion();
+      if (prev != null) {
+        expect(q.target.code, isNot(prev.code));
+      }
+      prev = q.target;
+    }
   });
 }
 
