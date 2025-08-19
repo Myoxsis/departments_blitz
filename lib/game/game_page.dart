@@ -40,7 +40,7 @@ class _GamePageState extends State<GamePage> {
   int total = 0;
   int hints = 1; // start with 1; more via rewarded
   Timer? _timer;
-  int secondsLeft = 60;
+  int secondsLeft = 20;
   bool _fiftyUsedOnThisQ = false;
 
   RewardedAd? _rewardedAd;
@@ -204,7 +204,7 @@ class _GamePageState extends State<GamePage> {
     final q = current;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sprint (60s)'),
+        title: const Text('Sprint (20s)'),
         actions: [
           Center(
             child: Padding(

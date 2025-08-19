@@ -16,13 +16,13 @@ class HomePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  '60-second sprint. Match the code to the department name.',
+                  '20-second sprint. Match the code to the department name.',
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
                 FilledButton(
                   onPressed: () => Navigator.of(context).pushNamed('/game'),
-                  child: const Text('Play Sprint (60s)'),
+                  child: const Text('Play Sprint (20s)'),
                 ),
                 const SizedBox(height: 8),
                 TextButton(
