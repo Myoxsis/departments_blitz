@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../ad_helper.dart';
+import '../widgets/gradient_background.dart';
 import 'models.dart';
 import 'quiz_engine.dart';
 
@@ -209,14 +210,7 @@ class _GamePageState extends State<GamePage> {
           ),
         ],
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF7C3AED), Color(0xFF4F46E5)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+      body: GradientBackground(
         child: q == null
             ? const Center(child: CircularProgressIndicator())
             : Padding(
