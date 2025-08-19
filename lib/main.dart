@@ -5,6 +5,7 @@ import 'game/home_page.dart';
 import 'game/game_page.dart';
 import 'game/results_page.dart';
 import 'game/models.dart';
+import 'game/results_args.dart';
 
 Future<List<Department>> loadDepartments() async {
   final jsonStr = await rootBundle.loadString('assets/departments.json');
@@ -60,11 +61,11 @@ class BlitzApp extends StatelessWidget {
       },
       onGenerateRoute: (settings) {
         if (settings.name == '/results') {
-          final args = settings.arguments as Map<String, dynamic>?;
-          final score = args?['score'] as int? ?? 0;
-          final total = args?['total'] as int? ?? 0;
+          final args = settings.arguments as ResultsArgs?;
           return MaterialPageRoute(
-            builder: (_) => ResultsPage(score: score, total: total),
+            builder: (_) => ResultsPage(
+              args: args ?? const ResultsArgs(score: 0, total: 0),
+            ),
           );
         }
         return null;

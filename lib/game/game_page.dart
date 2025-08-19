@@ -4,6 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../ad_helper.dart';
 import 'models.dart';
 import 'quiz_engine.dart';
+import 'results_args.dart';
 
 class GamePage extends StatefulWidget {
   final List<Department> departments;
@@ -51,7 +52,7 @@ class _GamePageState extends State<GamePage> {
     if (!mounted) return;
     Navigator.of(context).pushReplacementNamed(
       '/results',
-      arguments: {'score': score, 'total': total},
+      arguments: ResultsArgs(score: score, total: total),
     );
   }
 
