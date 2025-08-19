@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/gradient_background.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -7,14 +8,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Departments Blitz')),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Color(0xFF7C3AED), Color(0xFF4F46E5)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
+      body: GradientBackground(
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
