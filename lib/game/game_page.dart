@@ -209,71 +209,80 @@ class _GamePageState extends State<GamePage> {
           ),
         ],
       ),
-      body: q == null
-          ? const Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    'Score: $score',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 12),
-                  Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            'Which department matches code: ',
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            q.target.code,
-                            style: Theme.of(context).textTheme.displaySmall
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFF7C3AED), Color(0xFF4F46E5)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: q == null
+            ? const Center(child: CircularProgressIndicator())
+            : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Text(
+                      'Score: $score',
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  for (int i = 0; i < q.options.length; i++) ...[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 6.0),
-                      child: OutlinedButton(
-                        onPressed: () => _answer(i),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text(q.options[i]),
+                    const SizedBox(height: 12),
+                    Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              'Which department matches code: ',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              q.target.code,
+                              style: Theme.of(context).textTheme.displaySmall
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ],
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Questions: $total'),
-                      Row(
-                        children: [
-                          IconButton(
-                            tooltip: 'Use 50/50 hint (remaining: $hints)',
-                            onPressed: _useHint,
-                            icon: const Icon(Icons.lightbulb_outline),
+                    const SizedBox(height: 12),
+                    for (int i = 0; i < q.options.length; i++) ...[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6.0),
+                        child: OutlinedButton(
+                          onPressed: () => _answer(i),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(q.options[i]),
                           ),
-                          Text('x$hints'),
-                        ],
+                        ),
                       ),
                     ],
-                  ),
-                ],
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Questions: $total'),
+                        Row(
+                          children: [
+                            IconButton(
+                              tooltip: 'Use 50/50 hint (remaining: $hints)',
+                              onPressed: _useHint,
+                              icon: const Icon(Icons.lightbulb_outline),
+                            ),
+                            Text('x$hints'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
+      ),
     );
   }
 }
