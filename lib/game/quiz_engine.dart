@@ -31,8 +31,7 @@ class QuizEngine {
     while (opts.length < optionsCount - 1) {
       final d = all[_rng.nextInt(all.length)];
 
-      if (d.name != correctName && !used.contains(d.name)) {
-
+      if (d.name != target.name && !used.contains(d.name)) {
         used.add(d.name);
         opts.add(d.name);
       }
